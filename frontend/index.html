@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy Cricket Team Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .input-container {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .player-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        .player-input {
+            position: relative;
+        }
+        .suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            max-height: 150px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none; /* Hide by default */
+        }
+        .suggestions.show {
+            display: block; /* Show when class 'show' is added */
+        }
+        .suggestions li {
+            padding: 5px;
+            cursor: pointer;
+        }
+        .suggestions li:hover {
+            background-color: #f0f0f0;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fantasy Cricket Team Selector</h1>
+    <div class="input-container player-inputs">
+        <!-- Generate 22 player input fields -->
+        <script>
+            for (let i = 1; i <= 22; i++) {
+                document.write(`
+                    <div class="player-input">
+                        <label for="player-${i}">Player ${i}:</label>
+                        <input type="text" id="player-${i}" class="player-name" placeholder="Enter player name" autocomplete="off">
+                        <ul id="suggestions-${i}" class="suggestions"></ul>
+                    </div>
+                `);
+            }
+        </script>
+    </div>
+    <div class="input-container">
+        <label for="pitch-report">Pitch Report:</label>
+        <textarea id="pitch-report" rows="5" placeholder="Enter pitch report here..."></textarea>
+    </div>
+    <button id="submit">Submit</button>
+    <div id="result"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const API_BASE_URL = 'http://localhost:3000'; // Update this with your actual backend URL
+    </script>
+    <script src="autocomplete_feature.js"></script>
+</body>
+</html>
